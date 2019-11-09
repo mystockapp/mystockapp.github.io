@@ -1,0 +1,3 @@
+**/__mocks__/**
+src/serviceWorker.js
+jest.config.js

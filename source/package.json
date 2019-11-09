@@ -1,0 +1,68 @@
+{
+  "name": "baseapp-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest-styled-components": "^6.3.3",
+    "lodash": "^4.17.15",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-scripts": "3.1.2",
+    "react-test-renderer": "^16.9.0",
+    "styled-components": "^4.4.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "prettier --write \"src/**/*.js*\"",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && yarn copy",
+    "test": "react-scripts test",
+    "test:c": "react-scripts test --coverage",
+    "eject": "react-scripts eject",
+    "lint": "yarn format && eslint './src/**/*.{js,jsx}'",
+    "lint:q": "yarn format && eslint --quiet './src/**/*.{js,jsx}'",
+    "lint:fix": "yarn format && eslint --fix './src/**/*.{js,jsx}'",
+    "format": "prettier --write \"src/**/*.{js*,js}\"",
+    "copy": "copyfiles -u 1 \"./build/**/*.*\" \"../\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "jest-enzyme": "^7.1.1",
+    "jest-fetch-mock": "^2.1.2",
+    "jest-sonar-reporter": "^2.0.0",
+    "lint-staged": "^9.3.0",
+    "prettier": "^1.18.2"
+  }
+}
