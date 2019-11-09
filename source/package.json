@@ -22,7 +22,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn build && git commit -m \"stuff\""
+      "pre-commit": "yarn build",
+      "pre-push": "git commit -m \"stuff\""
     }
   },
   "scripts": {
