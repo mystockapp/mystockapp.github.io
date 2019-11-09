@@ -6,7 +6,7 @@ const logo = require('./logo.svg');
 
 const App = () => (
   <AppContextProvider>
-    <AppContainer>Here comes the fun!</AppContainer>
+    <AppContainer>Here comes the fun! yeah</AppContainer>
   </AppContextProvider>
 );
 
