@@ -1,58 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from './app-context';
-
-const INCREMENT = 1;
+import axios from 'axios';
 
 export class AppContextProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vars: [
-        {
-          name: 'A',
-          age: 20,
-        },
-        {
-          name: 'B',
-          age: 30,
-        },
-        {
-          name: 'C',
-          age: 40,
-        },
-      ],
+      loading: true,
+      content: {},
     };
   }
 
-  modifyAge(name, inc) {
-    const { vars } = this.state;
-    const current = vars.find(({ name: varName }) => varName === name);
-    if (current) {
-      current.age = inc ? current.age + INCREMENT : current.age - INCREMENT;
-    }
-    this.setState({
-      vars,
-    });
-  }
+  getStockInfo = () =>
+    axios
+      .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
+      .then(res => {
+        console.log(res.data);
+        const content = res.data;
+        const loading = false;
+        this.setState({ content, loading });
+      });
 
-  incrementAge(name) {
-    this.modifyAge(name, true);
-  }
-
-  decrementAge(name) {
-    this.modifyAge(name);
+  componentDidMount() {
+    this.getStockInfo();
+    // setInterval(this.getStockInfo, 60000);
   }
 
   render() {
     const { children } = this.props;
-    const { vars } = this.state;
+    const { loading, content } = this.state;
     return (
       <AppContext.Provider
         value={{
-          vars,
-          incrementAge: this.incrementAge,
-          decrementAge: this.decrementAge,
+          loading,
+          content,
         }}
       >
         {children}
