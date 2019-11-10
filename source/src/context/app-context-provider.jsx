@@ -34,6 +34,12 @@ export class AppContextProvider extends React.PureComponent {
         const loading = false;
         this.timerInterval = setInterval(this.setTimer, 1000);
         this.setState({ content, loading, timeToShow });
+      })
+      .catch(err => {
+        clearInterval(this.timerInterval);
+        const content = err;
+        const loading = false;
+        this.setState({ content, loading });
       });
   };
   componentDidMount() {

@@ -50,6 +50,19 @@ const renderValues = values => {
   );
 };
 
+const renderError = data => {
+  return (
+    <>
+      <h2>The following error(s) occured</h2>
+      <ul>
+        {Object.keys(data).map(key => (
+          <li>{data[key]}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
 // <Type>{meta['1. Information']}</Type>
 
 const Content = ({ context }) => {
@@ -57,6 +70,8 @@ const Content = ({ context }) => {
   const data = content['Time Series (1min)'];
   return loading ? (
     <p>loading...</p>
+  ) : !data ? (
+    renderError(content)
   ) : (
     <>
       <Type>Next snapshot in: {timeToShow}</Type>
