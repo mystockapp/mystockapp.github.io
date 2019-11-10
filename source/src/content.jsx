@@ -39,11 +39,12 @@ const renderLineChart = values => {
 const renderValues = values => {
   const key = Object.keys(values)[0];
   const val = <span>{Number(values[key]['4. close'])}</span>;
-  const text = key.split(' ')[1];
+  const [date, time] = key.split(' ');
   return (
     <ValueList>
-      <FirstValue key={key}>
-        Current: {text} {val}
+      <p>Date: {date}</p>
+      <FirstValue>
+        Time: {time} {val}
       </FirstValue>
     </ValueList>
   );

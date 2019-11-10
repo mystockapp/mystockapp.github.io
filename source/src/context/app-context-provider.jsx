@@ -23,20 +23,22 @@ export class AppContextProvider extends React.PureComponent {
 
   getStockInfo = () => {
     const timeToShow = '1:00';
-    this.setState({ loading: true });
-    this.setState({ timeToShow });
+    this.setState({ loading: true, timeToShow });
+    clearInterval(this.timerInterval);
+    this.base = 60;
     axios
       .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
       .then(res => {
+        console.log(res);
         const content = res.data;
         const loading = false;
+        this.timerInterval = setInterval(this.setTimer, 1000);
         this.setState({ content, loading, timeToShow });
       });
   };
   componentDidMount() {
     this.getStockInfo();
-    setInterval(this.setTimer, 1000);
-    setInterval(this.getStockInfo, 60000);
+    setInterval(this.getStockInfo, 6000);
   }
 
   render() {
