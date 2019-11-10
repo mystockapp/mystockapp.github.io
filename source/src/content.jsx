@@ -25,7 +25,7 @@ const renderLineChart = values => {
 
   return (
     <LineChartContainer>
-      <LineChart width={350} height={400} data={data} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+      <LineChart width={350} height={375} data={data} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" unit="5" />
         <XAxis dataKey="name" />
         <YAxis type="number" domain={['dataMin', 'dataMax']} />
@@ -75,7 +75,9 @@ const Content = ({ context }) => {
   ) : (
     <>
       <Type>Next snapshot in: {timeToShow}</Type>
-      <Head>{content['Meta Data']['2. Symbol']} STOCK</Head>
+      <Head>
+        <strong>{content['Meta Data']['2. Symbol']}</strong> STOCK
+      </Head>
       {renderValues(data)}
       {renderLineChart(data)}
     </>
