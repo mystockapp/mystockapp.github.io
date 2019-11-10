@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { disableBodyScroll } from 'body-scroll-lock';
 import { AppContext } from './app-context';
 import axios from 'axios';
 
@@ -29,7 +30,6 @@ export class AppContextProvider extends React.PureComponent {
     axios
       .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
       .then(res => {
-        console.log(res);
         const content = res.data;
         const loading = false;
         this.timerInterval = setInterval(this.setTimer, 1000);
@@ -45,6 +45,8 @@ export class AppContextProvider extends React.PureComponent {
   componentDidMount() {
     this.getStockInfo();
     setInterval(this.getStockInfo, 60000);
+    this.targetElement = document.querySelector('#root');
+    disableBodyScroll(this.targetElement);
   }
 
   render() {
