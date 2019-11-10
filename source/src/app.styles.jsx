@@ -45,6 +45,7 @@ export const Head = styled.h1`
   color: white;
   font-size: 50px;
   font-weight: normal;
+  margin: 20px 0;
 `;
 
 export const Type = styled.p`
