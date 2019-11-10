@@ -22,14 +22,15 @@ export class AppContextProvider extends React.PureComponent {
   };
 
   getStockInfo = () => {
+    const timeToShow = '1:00';
     this.setState({ loading: true });
-    this.setState({ timeToShow: '1:00' });
+    this.setState({ timeToShow });
     axios
       .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
       .then(res => {
         const content = res.data;
         const loading = false;
-        this.setState({ content, loading });
+        this.setState({ content, loading, timeToShow });
       });
   };
   componentDidMount() {
