@@ -3,43 +3,44 @@ import PropTypes from 'prop-types';
 import { AppContext } from './app-context';
 import axios from 'axios';
 
-export class AppContextProvider extends React.Component {
+export class AppContextProvider extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
       content: {},
+      timeToShow: '1:00',
     };
   }
+  base = 60;
 
-  getStockInfo = () =>
+  setTimer = () => {
+    this.base -= 1;
+    this.setState({
+      timeToShow: `0:${this.base < 10 ? `0${this.base}` : this.base}`,
+    });
+  };
+
+  getStockInfo = () => {
+    this.setState({ loading: true });
+    this.setState({ timeToShow: '1:00' });
     axios
       .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
       .then(res => {
-        console.log(res.data);
         const content = res.data;
         const loading = false;
         this.setState({ content, loading });
       });
-
+  };
   componentDidMount() {
     this.getStockInfo();
+    setInterval(this.setTimer, 1000);
     setInterval(this.getStockInfo, 60000);
   }
 
   render() {
     const { children } = this.props;
-    const { loading, content } = this.state;
-    return (
-      <AppContext.Provider
-        value={{
-          loading,
-          content,
-        }}
-      >
-        {children}
-      </AppContext.Provider>
-    );
+    return <AppContext.Provider value={{ ...this.state }}>{children}</AppContext.Provider>;
   }
 }
 

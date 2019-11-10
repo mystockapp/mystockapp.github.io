@@ -51,23 +51,11 @@ const renderValues = values => {
 
 // <Type>{meta['1. Information']}</Type>
 
-let i = 60;
-
 const Content = ({ context }) => {
-  const [timeToShow, setTime] = React.useState('1:00');
-
-  const setTimer = () => {
-    i -= 1;
-    const current = `0:${i < 10 ? `0${i}` : i}`;
-    return setTime(current);
-  };
-
-  React.useEffect(() => setInterval(setTimer, 1000), []);
-
-  const { loading, content } = context;
+  const { loading, content, timeToShow } = context;
   const data = content['Time Series (1min)'];
   return loading ? (
-    <p>loading</p>
+    <p>loading...</p>
   ) : (
     <>
       <Type>Next snapshot in: {timeToShow}</Type>
