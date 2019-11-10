@@ -37,7 +37,7 @@
     "lint:q": "yarn format && eslint --quiet './src/**/*.{js,jsx}'",
     "lint:fix": "yarn format && eslint --fix './src/**/*.{js,jsx}'",
     "format": "prettier --write \"src/**/*.{js*,js}\"",
-    "copy": "copyfiles -u 1 \"./build/**/*.*\" \"../\""
+    "copy": "rm -rf \"../static\" && rm ../*precache* && copyfiles -u 1 \"./build/**/*.*\" \"../\""
   },
   "eslintConfig": {
     "extends": "react-app"
