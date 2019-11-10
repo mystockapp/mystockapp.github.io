@@ -38,7 +38,7 @@ export class AppContextProvider extends React.PureComponent {
   };
   componentDidMount() {
     this.getStockInfo();
-    setInterval(this.getStockInfo, 6000);
+    setInterval(this.getStockInfo, 60000);
   }
 
   render() {
