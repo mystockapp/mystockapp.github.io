@@ -10,6 +10,8 @@ const BASE_TIME_TO_SHOW = 'in: 1:00';
 const BASE_SEC = 60;
 const MINUTE = 60000;
 const SECOND = 1000;
+const myStorage = window.localStorage;
+console.log(myStorage);
 
 export class AppContextProvider extends React.PureComponent {
   constructor(props) {
@@ -33,20 +35,32 @@ export class AppContextProvider extends React.PureComponent {
     this.setState({ loading: true, timeToShow });
     clearInterval(this.timerInterval);
     this.base = BASE_SEC;
-    axios
-      .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
-      .then(res => {
-        const content = res.data;
-        const loading = false;
-        this.timerInterval = marketOpen && setInterval(this.setTimer, SECOND);
-        this.setState({ content, loading, timeToShow });
-      })
-      .catch(err => {
-        clearInterval(this.timerInterval);
-        const content = err;
-        const loading = false;
-        this.setState({ content, loading });
-      });
+
+    if (marketOpen) {
+      myStorage.removeItem('myStock');
+    }
+    const localContent = JSON.parse(myStorage.getItem('myStock'));
+    if (localContent) {
+      const loading = false;
+      this.timerInterval = marketOpen && setInterval(this.setTimer, SECOND);
+      this.setState({ content: localContent, loading, timeToShow });
+    } else {
+      axios
+        .get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=EPAM&interval=1min&apikey=3ON1I9KV93O2LPBT')
+        .then(res => {
+          const content = res.data;
+          myStorage.setItem('myStock', JSON.stringify(content));
+          const loading = false;
+          this.timerInterval = marketOpen && setInterval(this.setTimer, SECOND);
+          this.setState({ content, loading, timeToShow });
+        })
+        .catch(err => {
+          clearInterval(this.timerInterval);
+          const content = err;
+          const loading = false;
+          this.setState({ content, loading });
+        });
+    }
   };
 
   getNextDay = param => {
