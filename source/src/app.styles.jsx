@@ -5,6 +5,14 @@ export const AppContainer = styled.div`
   max-width: 480px;
 `;
 
+export const Button = styled.button`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+`;
+
 export const ValueContainer = styled.div`
   display: flex;
 `;

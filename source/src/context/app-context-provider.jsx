@@ -82,6 +82,7 @@ export const AppContextProvider = ({ children }) => {
 
     if (marketOpen) {
       myStorage.removeItem(LOCAL_STORAGE_ID);
+      base = BASE_SEC;
       setLoading(true);
       clearInterval(timerInterval);
     }

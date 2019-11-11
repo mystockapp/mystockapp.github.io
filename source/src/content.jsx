@@ -1,6 +1,7 @@
 import React from 'react';
-import { ValueList, FirstValue, Head, Type, LineChartContainer } from './app.styles';
+import { ValueList, FirstValue, Head, Type, LineChartContainer, Button } from './app.styles';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
+import { relativeTimeRounding } from 'moment';
 
 const renderLineChart = values => {
   // name: time
@@ -68,12 +69,18 @@ const renderError = data => {
 const Content = ({ context }) => {
   const { loading, content, timeToShow } = context;
   const data = content['Time Series (1min)'];
+
+  const reload = () => {
+    window.location.reload();
+  };
+
   return loading ? (
     <p>loading...</p>
   ) : !data ? (
     renderError(content)
   ) : (
     <>
+      <Button onClick={reload}></Button>
       <Type>Next snapshot {timeToShow}</Type>
       <Head>
         <strong>{content['Meta Data']['2. Symbol']}</strong> STOCK
