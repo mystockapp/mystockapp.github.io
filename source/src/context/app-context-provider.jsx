@@ -11,7 +11,6 @@ const BASE_SEC = 60;
 const MINUTE = 60000;
 const SECOND = 1000;
 const myStorage = window.localStorage;
-console.log(myStorage);
 
 export class AppContextProvider extends React.PureComponent {
   constructor(props) {
