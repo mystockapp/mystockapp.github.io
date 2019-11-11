@@ -74,7 +74,7 @@ const Content = ({ context }) => {
     renderError(content)
   ) : (
     <>
-      <Type>Next snapshot in: {timeToShow}</Type>
+      <Type>Next snapshot {timeToShow}</Type>
       <Head>
         <strong>{content['Meta Data']['2. Symbol']}</strong> STOCK
       </Head>
